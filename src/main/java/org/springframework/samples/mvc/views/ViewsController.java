@@ -4,7 +4,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import com.google.gson.Gson;
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
@@ -27,9 +30,34 @@ public class ViewsController {
 	private static final EntityManagerFactory ENTITY_MANAGER_FACTORY = Persistence
 			.createEntityManagerFactory("HibernateJPA");
 
+	@GetMapping("/home")
+	public String showHomepage(HttpServletRequest request, Model model) {
+		HttpSession session = request.getSession();
+		if(session.getAttribute("username") != null) {
+			User user = (User) session.getAttribute("user");
+			model.addAttribute("username", user.getUsername());
+			model.addAttribute("role", user.getRole().getName());
+			if(user.getRole().getName().equals("user")) {
+				return "home";
+			}
+			return "/views/history";
+		}
+		return "loginPage";
+	}
+
 	@GetMapping("/history")
-	public String showHistory(Model model) {
-		return "views/history";
+	public String showHistory(HttpServletRequest request, Model model) {
+		HttpSession session = request.getSession();
+		if(session.getAttribute("username") != null) {
+			User user = (User) session.getAttribute("user");
+			model.addAttribute("username", user.getUsername());
+			model.addAttribute("role", user.getRole().getName());
+			if(user.getRole().getName().equals("user")) {
+				return "home";
+			}
+			return "/views/history";
+		}
+		return "loginPage";
 	}
 
 	@GetMapping("/getHistory")
@@ -391,4 +419,49 @@ public class ViewsController {
 
 		return result;
 	}
+
+	public void createUsersAndRoles(){
+		EntityManager entityManager = ENTITY_MANAGER_FACTORY.createEntityManager();
+		EntityTransaction entityTransaction = null;
+
+		try {
+			entityTransaction = entityManager.getTransaction();
+			entityTransaction.begin();
+
+			Role user = new Role();
+			Role admin = new Role();
+			User user_ = new User();
+			User admin_ = new User();
+			user_.setUsername("marioskyrkos1");
+			user_.setPassword("1234567");
+			user_.setHMEROMHNIA(new java.util.Date());
+			user_.setIsActive(1);
+			user_.setRole(user);
+			admin_.setUsername("marioskyrkos2");
+			admin_.setPassword("1234567");
+			admin_.setHMEROMHNIA(new java.util.Date());
+			admin_.setIsActive(0);
+			admin_.setRole(admin);
+
+			entityManager.persist(user);
+			entityManager.persist(admin);
+			entityManager.persist(user_);
+			entityManager.persist(admin_);
+			entityTransaction.commit();
+
+		} catch (Exception exception) {
+
+			// If there is an exception rollback changes
+			if (entityTransaction != null) {
+				entityTransaction.rollback();
+			}
+			exception.printStackTrace();
+
+		} finally {
+			// Close EntityManager
+			entityManager.close();
+		}
+	}
+
+
 }

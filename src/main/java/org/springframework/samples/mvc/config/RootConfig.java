@@ -16,10 +16,10 @@ public class RootConfig {
 	// See https://docs.spring.io/spring-security/site/docs/current/reference/htmlsingle/#csrf
 	// for more information on Spring Security's CSRF protection
 
-	@Bean
+	/*@Bean
 	public CsrfFilter csrfFilter() {
 		return new CsrfFilter(new HttpSessionCsrfTokenRepository());
-	}
+	}*/
 
 	// Provides automatic CSRF token inclusion when using Spring MVC Form tags or Thymeleaf.
 

@@ -18,7 +18,7 @@
 </head>
 <body>
 <!-- Navigation bar -->
-<nav class="navbar navbar-expand-lg navbar-light bg-dark">
+<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-dark">
 	<div class="container-fluid">
 		<a class="navbar-brand text-light" href="#">
 			<%--<img src="icon.png" alt="" width="30" height="30" class="d-inline-block">--%>
@@ -29,10 +29,32 @@
 		<div class="collapse navbar-collapse" id="navbarText">
 			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 			</ul>
-			<a class="text-light nav-item nav-link" href="<c:url value="/views/history" />">History</a>
+			<c:if test = "${role == 'admin'}">
+				<a class="text-light nav-item nav-link" href="<c:url value="/views/history" />">History</a>
+			</c:if>
+			<c:if test = "${role == 'user'}">
+				<a class="text-light nav-item nav-link" href="<c:url value="/views/home" />">Home</a>
+			</c:if>
+			<a class="text-light nav-item nav-link" href="<c:url value="/sign-in/sign-out" />">Log out</a>
 		</div>
 	</div>
 </nav>
+
+<div class="row mt-3 mb-3">
+	<div class="col-sm-1 col-xl-1"></div>
+	<div class="col-sm-6 col-xl-4">
+		<h4>Username: ${username}</</h4>
+	</div>
+	<div class="col-sm-5 col-xl-7"></div>
+</div>
+
+<div class="row mt-3 mb-3">
+	<div class="col-sm-1 col-xl-1"></div>
+	<div class="col-sm-6 col-xl-4">
+		<h4>Role ID: ${role}</</h4>
+	</div>
+	<div class="col-sm-5 col-xl-7"></div>
+</div>
 
 <!-- App title -->
 <div class="row mt-3 mb-3">

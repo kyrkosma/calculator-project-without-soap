@@ -30,7 +30,7 @@
 </head>
 <body>
 <!-- Navigation bar -->
-<nav class="navbar navbar-expand-lg navbar-light bg-dark">
+<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-dark">
     <div class="container-fluid">
         <a class="navbar-brand text-light" href="#">
             <%--<img src="icon.png" alt="" width="30" height="30" class="d-inline-block">--%>
@@ -42,9 +42,35 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             </ul>
             <a class="text-light nav-item nav-link" href="<c:url value="/views/history" />">History</a>
+            <a class="text-light nav-item nav-link" href="<c:url value="/sign-in/sign-out" />">Log out</a>
         </div>
     </div>
 </nav>
+
+<div class="row mt-3 mb-3">
+    <div class="col-sm-1 col-xl-1"></div>
+    <div class="col-sm-6 col-xl-4">
+        <h4>Username: ${username}</</h4>
+    </div>
+    <div class="col-sm-5 col-xl-7"></div>
+</div>
+
+<div class="row mt-3 mb-3">
+    <div class="col-sm-1 col-xl-1"></div>
+    <div class="col-sm-6 col-xl-4">
+        <h4>Role ID: ${role}</</h4>
+    </div>
+    <div class="col-sm-5 col-xl-7"></div>
+</div>
+
+<!-- App title -->
+<div class="row mt-3 mb-3">
+    <div class="col-sm-3 col-xl-4"></div>
+    <div class="col-sm-6 col-xl-4" align="center">
+        <h2>Bootstrap5 Calculator</h2>
+    </div>
+    <div class="col-sm-3 col-xl-4"></div>
+</div>
 
 <div class="row mt-2">
     <div class="col-sm-3 col-xl-4"></div>
@@ -81,7 +107,7 @@
 <div class="row mt-2">
     <div class="col-sm-3 col-xl-4"></div>
     <div class="col-sm-4 col-xl-2">
-        <button id="searchButton" type="button" class="btn btn-primary">Search</button>
+        <button id="searchButton" type="button" class="btn btn-dark">Search</button>
     </div>
     <div class="col-sm-5 col-xl-6"></div>
 </div>

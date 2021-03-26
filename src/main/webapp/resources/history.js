@@ -1,11 +1,11 @@
 $(document).ready(function(){
 
     document.getElementById("searchValue4").valueAsDate = new Date();
-
     document.getElementById("searchValue1").style.display = "block";
     document.getElementById("searchValue2").style.display = "none";
     document.getElementById("searchValue3").style.display = "none";
     document.getElementById("searchValue4").style.display = "none";
+
     var t = $('#historyTable').DataTable({
         columnDefs: [
             {
