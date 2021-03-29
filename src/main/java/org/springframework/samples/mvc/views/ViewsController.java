@@ -4,15 +4,12 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import com.google.gson.Gson;
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -31,33 +28,15 @@ public class ViewsController {
 			.createEntityManagerFactory("HibernateJPA");
 
 	@GetMapping("/home")
-	public String showHomepage(HttpServletRequest request, Model model) {
-		HttpSession session = request.getSession();
-		if(session.getAttribute("username") != null) {
-			User user = (User) session.getAttribute("user");
-			model.addAttribute("username", user.getUsername());
-			model.addAttribute("role", user.getRole().getName());
-			if(user.getRole().getName().equals("user")) {
-				return "home";
-			}
-			return "/views/history";
-		}
-		return "loginPage";
+	public String showHomepage(HttpSession session) {
+		System.out.println("Created at: " + session.getCreationTime());
+		System.out.println("Last accessed at: " + session.getLastAccessedTime());
+		return "home";
 	}
 
 	@GetMapping("/history")
-	public String showHistory(HttpServletRequest request, Model model) {
-		HttpSession session = request.getSession();
-		if(session.getAttribute("username") != null) {
-			User user = (User) session.getAttribute("user");
-			model.addAttribute("username", user.getUsername());
-			model.addAttribute("role", user.getRole().getName());
-			if(user.getRole().getName().equals("user")) {
-				return "home";
-			}
+	public String showHistory() {
 			return "/views/history";
-		}
-		return "loginPage";
 	}
 
 	@GetMapping("/getHistory")
@@ -462,6 +441,5 @@ public class ViewsController {
 			entityManager.close();
 		}
 	}
-
 
 }

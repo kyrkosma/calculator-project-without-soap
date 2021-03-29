@@ -35,7 +35,7 @@
 			<c:if test = "${role == 'user'}">
 				<a class="text-light nav-item nav-link" href="<c:url value="/views/home" />">Home</a>
 			</c:if>
-			<a class="text-light nav-item nav-link" href="<c:url value="/sign-in/sign-out" />">Log out</a>
+			<a class="text-light nav-item nav-link" href="<c:url value="/logout" />">Log out</a>
 		</div>
 	</div>
 </nav>

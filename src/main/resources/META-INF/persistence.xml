@@ -34,39 +34,4 @@ mapped to database tables. Database driver, location, userid and pw
         </properties>
     </persistence-unit>
 
-<!--    <persistence-unit name="userHibernateJPA" transaction-type="RESOURCE_LOCAL">
-        &lt;!&ndash; Define the class for Hibernate which implements JPA &ndash;&gt;
-        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        &lt;!&ndash; Define the object that should be persisted in the database &ndash;&gt;
-        <class>org.springframework.samples.mvc.views.User</class>
-        <properties>
-            &lt;!&ndash; Driver for DB database &ndash;&gt;
-            <property name="javax.persistence.jdbc.driver" value="oracle.jdbc.driver.OracleDriver" />
-            &lt;!&ndash; URL for DB &ndash;&gt;
-            <property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@localhost:1521:xe" />
-            &lt;!&ndash; Username &ndash;&gt;
-            <property name="javax.persistence.jdbc.user" value="system" />
-            &lt;!&ndash; Password &ndash;&gt;
-            <property name="javax.persistence.jdbc.password" value="1234" />
-            <property name = "hibernate.show_sql" value = "true" />
-        </properties>
-    </persistence-unit>
-
-    <persistence-unit name="roleHibernateJPA" transaction-type="RESOURCE_LOCAL">
-        &lt;!&ndash; Define the class for Hibernate which implements JPA &ndash;&gt;
-        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        &lt;!&ndash; Define the object that should be persisted in the database &ndash;&gt;
-        <class>org.springframework.samples.mvc.views.Role</class>
-        <properties>
-            &lt;!&ndash; Driver for DB database &ndash;&gt;
-            <property name="javax.persistence.jdbc.driver" value="oracle.jdbc.driver.OracleDriver" />
-            &lt;!&ndash; URL for DB &ndash;&gt;
-            <property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@localhost:1521:xe" />
-            &lt;!&ndash; Username &ndash;&gt;
-            <property name="javax.persistence.jdbc.user" value="system" />
-            &lt;!&ndash; Password &ndash;&gt;
-            <property name="javax.persistence.jdbc.password" value="1234" />
-            <property name = "hibernate.show_sql" value = "true" />
-        </properties>
-    </persistence-unit>-->
 </persistence>

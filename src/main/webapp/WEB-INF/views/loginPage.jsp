@@ -20,7 +20,7 @@
 <body>
 <div class="wrapper fadeInDown">
 	<div id="formContent">
-		<form action="<c:url value="/sign-in/check"/>" method="POST">
+		<form action="<c:url value="/sign-in/"/>" method="POST">
 			<input type="text" id="username" class="fadeIn second" name="username" minlength="5" maxlength="15" placeholder="Login" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Login'">
 			<input type="password" id="password" class="fadeIn third" name="password" minlength="5" maxlength="20" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
 			<input type="submit" id="btnLogin" class="fadeIn fourth" value="Log In">

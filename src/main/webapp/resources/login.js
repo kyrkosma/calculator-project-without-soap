@@ -1,12 +1,12 @@
 $(document).ready(function(){
 
-    var input = document.getElementById("password");
+    /*var input = document.getElementById("password");
     input.addEventListener("keyup", function(event) {
         if (event.keyCode === 13) {
             event.preventDefault();
             document.getElementById("btnLogin").click();
         }
-    });
+    });*/
 
     /*$('#btnLogin').on('click', function() {
 

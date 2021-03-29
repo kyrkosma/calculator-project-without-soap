@@ -30,6 +30,12 @@
 		<!-- Spring Security (used for CSRF protection only) -->
 		<dependency>
 			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-core</artifactId>
+			<version>5.3.3.RELEASE</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-web</artifactId>
 			<version>5.0.0.RELEASE</version>
 		</dependency>
