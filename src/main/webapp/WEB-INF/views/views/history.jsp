@@ -42,7 +42,7 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             </ul>
             <a class="text-light nav-item nav-link" href="<c:url value="/views/history" />">History</a>
-            <a class="text-light nav-item nav-link" href="<c:url value="/sign-in/sign-out" />">Log out</a>
+            <a class="text-light nav-item nav-link" href="<c:url value="/logout" />">Log out</a>
         </div>
     </div>
 </nav>

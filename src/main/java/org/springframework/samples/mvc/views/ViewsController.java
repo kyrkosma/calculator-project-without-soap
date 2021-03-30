@@ -82,7 +82,6 @@ public class ViewsController {
 	public void searchDB(@RequestParam String operation, @RequestParam String value1, @RequestParam String value2, HttpServletResponse response) throws IOException, SQLException {
 
 		String result = getFilteredCalculationTable(operation, value1, value2);
-
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
