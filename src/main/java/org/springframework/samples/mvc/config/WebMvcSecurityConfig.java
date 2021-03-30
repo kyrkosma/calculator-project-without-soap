@@ -69,7 +69,7 @@ public class WebMvcSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                    .antMatchers("/sign-in/").permitAll()
+                    .antMatchers("/sign-in/", "/api/*").permitAll()
                     .anyRequest().authenticated()
                     .and()
                 .formLogin()
@@ -82,7 +82,5 @@ public class WebMvcSecurityConfig extends WebSecurityConfigurerAdapter {
                     .logoutSuccessUrl("/sign-in/")
                     .and()
                 .csrf().disable();
-
     }
-
 }
