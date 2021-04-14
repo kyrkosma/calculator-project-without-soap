@@ -25,7 +25,7 @@ $(document).ready(function(){
             console.log(result);
             console.log(typeof result);
             for (i = 0; i < result.length; i++) {
-                t.row.add([result[i].firstNumber, result[i].operation, result[i].secondNumber, result[i].apotelesma, result[i].hmeromhnia_, result[i].wra_]).draw(false);
+                t.row.add([result[i].firstNumber, result[i].operation, result[i].secondNumber, result[i].apotelesma, result[i].hm, result[i].wra_]).draw(false);
             }
         },
         error: function (xhr) {
@@ -87,7 +87,7 @@ $(document).ready(function(){
                 console.log(result);
                 console.log(typeof result);
                 for (i = 0; i < result.length; i++) {
-                    t.row.add([result[i].firstNumber, result[i].operation, result[i].secondNumber, result[i].apotelesma, result[i].hmeromhnia_, result[i].wra_]).draw(false);
+                    t.row.add([result[i].firstNumber, result[i].operation, result[i].secondNumber, result[i].apotelesma, result[i].hm, result[i].wra_]).draw(false);
                 }
             },
             error: function (xhr) {

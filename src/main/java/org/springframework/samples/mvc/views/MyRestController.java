@@ -2,25 +2,29 @@ package org.springframework.samples.mvc.views;
 
 import com.google.gson.Gson;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
+import javax.persistence.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/*")
 public class MyRestController {
 
+    /*@PersistenceContext
+    EntityManager entityManager;*/
+
     private static final EntityManagerFactory ENTITY_MANAGER_FACTORY = Persistence
             .createEntityManagerFactory("HibernateJPA");
+
+    //Caused problems with rollback, couldn't filter table
+    /*@Autowired
+    private EntityManager entityManager;*/
 
     @RequestMapping(value = "getDB", method = { RequestMethod.GET, RequestMethod.POST }, produces = "application/json;charset=UTF-8")
     public String getDB() {
@@ -120,15 +124,14 @@ public class MyRestController {
 
             List<Calculation> calculations = entityManager.createQuery( "from Calculation", Calculation.class ).getResultList();
 
-
-            org.json.JSONArray json = new org.json.JSONArray(calculations);
+            /*org.json.JSONArray json = new org.json.JSONArray(calculations);
             org.json.JSONObject historyTable = new org.json.JSONObject();
             System.out.println("JSON STRING");
             System.out.println(json.toString());
             for (int i=0; i<json.length(); i++) {
                 org.json.JSONObject jsonObject = new org.json.JSONObject(json.getJSONObject(i));
                 historyTable.put(String.valueOf(i), jsonObject);
-            }
+            }*/
 
             Gson g = new Gson();
             result = g.toJson(calculations);
@@ -152,8 +155,8 @@ public class MyRestController {
         return result;
     }
 
-    public void addCalculationToDB(float firstNumber, String operation, float secondNumber, float apotelesma, String hmeromhnia_,
-                                   java.util.Date hmeromhnia__,
+    public void addCalculationToDB(float firstNumber, String operation, float secondNumber, float apotelesma, String hm,
+                                   java.util.Date hmer,
                                    java.util.Date hmeromhnia, String wra_,
                                    java.util.Date hmerom) {
 
@@ -173,8 +176,8 @@ public class MyRestController {
             calculation.setOperation(operation);
             calculation.setSecondNumber(secondNumber);
             calculation.setApotelesma(apotelesma);
-            calculation.setHmeromhnia_(hmeromhnia_);
-            calculation.setHmeromhnia__(hmeromhnia__);
+            calculation.setHm(hm);
+            calculation.setHmer(hmer);
             calculation.setHmeromhnia(hmeromhnia);
             calculation.setWra_(wra_);
             calculation.setHmerom(hmerom);

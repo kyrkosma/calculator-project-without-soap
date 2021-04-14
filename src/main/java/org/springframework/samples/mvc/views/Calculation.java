@@ -25,11 +25,11 @@ public class Calculation {
     private float apotelesma;
 
     @Column(name = "HMEROMHNIA_", nullable = false)
-    private String hmeromhnia_;
+    private String hm;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "HMEROMHNIA__")
-    private Date hmeromhnia__;
+    private Date hmer;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "HMEROMHNIA")
@@ -57,11 +57,11 @@ public class Calculation {
     public float getApotelesma() { return apotelesma; }
     public void setApotelesma(float apotelesma) { this.apotelesma = apotelesma; }
 
-    public String getHmeromhnia_() { return hmeromhnia_; }
-    public void setHmeromhnia_(String hmeromhnia_) { this.hmeromhnia_ = hmeromhnia_; }
+    public String getHm() { return hm; }
+    public void setHm(String hm) { this.hm = hm; }
 
-    public Date getHmeromhnia__() { return hmeromhnia__; }
-    public void setHmeromhnia__(Date hmeromhnia__) { this.hmeromhnia__ = hmeromhnia__; }
+    public Date getHmer() { return hmer; }
+    public void setHmer(Date hmer) { this.hmer = hmer; }
 
     public Date getHmeromhnia() { return hmeromhnia; }
     public void setHmeromhnia(Date hmeromhnia) { this.hmeromhnia = hmeromhnia; }

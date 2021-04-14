@@ -18,12 +18,12 @@ import java.util.List;
 @EnableWebSecurity
 public class WebMvcSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private static final EntityManagerFactory ENTITY_MANAGER_FACTORY = Persistence
-            .createEntityManagerFactory("HibernateJPA");
+    /*private static final EntityManagerFactory ENTITY_MANAGER_FACTORY = Persistence
+            .createEntityManagerFactory("HibernateJPA");*/
 
-    EntityManager entityManager = ENTITY_MANAGER_FACTORY.createEntityManager();
+    /*EntityManager entityManager = ENTITY_MANAGER_FACTORY.createEntityManager();*/
+    EntityManager entityManager = MyFactory.getEntityManager();
     EntityTransaction entityTransaction = null;
-
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
@@ -41,7 +41,6 @@ public class WebMvcSecurityConfig extends WebSecurityConfigurerAdapter {
                         .password("{noop}" + u.getPassword())
                         .roles(u.getRole().getName());
             }
-
             entityTransaction.commit();
 
         } catch (Exception exception) {
@@ -57,6 +56,10 @@ public class WebMvcSecurityConfig extends WebSecurityConfigurerAdapter {
 
     }
 
+    /**
+     * We need to ignore resources
+     *
+     */
     @Override
     public void configure(WebSecurity web) {
         web
@@ -64,12 +67,15 @@ public class WebMvcSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/resources/**"); // #3
     }
 
-    // To work: Need to return WebMvcSecurityConfig.class in getRootConfigClasses and create SecurityWebInitializer.java
+    /**
+     * For this to work:
+     * We need to return WebMvcSecurityConfig.class in getRootConfigClasses and create SecurityWebInitializer.java
+     */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                    .antMatchers("/sign-in/", "/api/*").permitAll()
+                    .antMatchers("/sign-in/", "/api/*","/SoapWs").permitAll()
                     .anyRequest().authenticated()
                     .and()
                 .formLogin()
@@ -81,6 +87,9 @@ public class WebMvcSecurityConfig extends WebSecurityConfigurerAdapter {
                     .permitAll()
                     .logoutSuccessUrl("/sign-in/")
                     .and()
+                /*.sessionManagement()
+                    .invalidSessionUrl("/sign-in/")
+                    .and()*/
                 .csrf().disable();
     }
 }

@@ -14,6 +14,8 @@ import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.util.UrlPathHelper;
 
+import javax.persistence.EntityManager;
+
 // DispatcherServlet context: defines Spring MVC infrastructure
 // and web application components
 
@@ -28,17 +30,22 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+		registry
+				.addResourceHandler("/resources/**")
+				.addResourceLocations("/resources/");
 	}
 
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
-		registry.addViewController("/").setViewName("loginPage");
+		registry
+				.addViewController("/")
+				.setViewName("loginPage");
 	}
 
 	@Override
 	public void configureViewResolvers(ViewResolverRegistry registry) {
-		registry.jsp("/WEB-INF/views/", ".jsp");
+		registry
+				.jsp("/WEB-INF/views/", ".jsp");
 	}
 
 	@Override
@@ -53,4 +60,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
 		return new CommonsMultipartResolver();
 	}
 
+	/*@Bean(name = "entityManager")
+	public EntityManager getEntityManager(){
+		return MyFactory.getEntityManager();
+	}*/
 }

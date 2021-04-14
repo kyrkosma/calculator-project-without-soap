@@ -7,6 +7,7 @@ import javax.persistence.Persistence;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import com.google.gson.Gson;
+import jdk.nashorn.internal.runtime.logging.Logger;
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
 import org.springframework.stereotype.Controller;
@@ -243,8 +244,8 @@ public class ViewsController {
 		}
 	}
 
-	public void addCalculationToDB(float firstNumber, String operation, float secondNumber, float apotelesma, String hmeromhnia_,
-									 java.util.Date hmeromhnia__,
+	public void addCalculationToDB(float firstNumber, String operation, float secondNumber, float apotelesma, String hm,
+									 java.util.Date hmer,
 									 java.util.Date hmeromhnia, String wra_,
 									 java.util.Date hmerom) {
 
@@ -264,8 +265,8 @@ public class ViewsController {
 			calculation.setOperation(operation);
 			calculation.setSecondNumber(secondNumber);
 			calculation.setApotelesma(apotelesma);
-			calculation.setHmeromhnia_(hmeromhnia_);
-			calculation.setHmeromhnia__(hmeromhnia__);
+			calculation.setHm(hm);
+			calculation.setHmer(hmer);
 			calculation.setHmeromhnia(hmeromhnia);
 			calculation.setWra_(wra_);
 			calculation.setHmerom(hmerom);
@@ -304,18 +305,22 @@ public class ViewsController {
 			List<Calculation> calculations = entityManager.createQuery( "from Calculation", Calculation.class ).getResultList();
 
 
-			org.json.JSONArray json = new org.json.JSONArray(calculations);
+			/*org.json.JSONArray json = new org.json.JSONArray(calculations);
 			org.json.JSONObject historyTable = new org.json.JSONObject();
 			System.out.println("JSON STRING");
 			System.out.println(json.toString());
 			for (int i=0; i<json.length(); i++) {
 				org.json.JSONObject jsonObject = new org.json.JSONObject(json.getJSONObject(i));
 				historyTable.put(String.valueOf(i), jsonObject);
-			}
+			}*/
 
 			Gson g = new Gson();
 			result = g.toJson(calculations);
 
+			System.out.println("DEBUG");
+			System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+			System.out.println(result);
+			System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
 			entityTransaction.commit();
 

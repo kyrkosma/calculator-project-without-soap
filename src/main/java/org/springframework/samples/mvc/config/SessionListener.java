@@ -3,6 +3,7 @@ package org.springframework.samples.mvc.config;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
+//Used to set the session timeout in Java instead of creating a xml file for this purpose.
 public class SessionListener implements HttpSessionListener {
 
     @Override
