@@ -1,3 +1,4 @@
+/*
 package org.springframework.samples.mvc;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,3 +15,4 @@ public class AbstractContextControllerTests {
 	protected WebApplicationContext wac;
 
 }
+*/

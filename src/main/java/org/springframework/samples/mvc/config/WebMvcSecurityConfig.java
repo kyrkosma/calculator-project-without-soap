@@ -18,11 +18,11 @@ import java.util.List;
 @EnableWebSecurity
 public class WebMvcSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    /*private static final EntityManagerFactory ENTITY_MANAGER_FACTORY = Persistence
-            .createEntityManagerFactory("HibernateJPA");*/
+    private static final EntityManagerFactory ENTITY_MANAGER_FACTORY = Persistence
+            .createEntityManagerFactory("HibernateJPA");
 
-    /*EntityManager entityManager = ENTITY_MANAGER_FACTORY.createEntityManager();*/
-    EntityManager entityManager = MyFactory.getEntityManager();
+    EntityManager entityManager = ENTITY_MANAGER_FACTORY.createEntityManager();
+    /*EntityManager entityManager = MyFactory.getEntityManager();*/
     EntityTransaction entityTransaction = null;
 
     @Autowired
@@ -76,6 +76,7 @@ public class WebMvcSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                     .antMatchers("/sign-in/", "/api/*","/SoapWs").permitAll()
+                    .antMatchers("/views/history").hasRole("admin")
                     .anyRequest().authenticated()
                     .and()
                 .formLogin()

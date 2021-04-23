@@ -7,7 +7,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap5 Calculator</title>
+    <title>Calculator</title>
     <!-- JQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
@@ -32,22 +32,22 @@
 <!-- Navigation bar -->
 <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand text-light" href="#">
+        <a class="navbar-brand text-light">
             <%--<img src="icon.png" alt="" width="30" height="30" class="d-inline-block">--%>
-            Bootstrap5 Calculator</a>
+            Calculator</a>
         <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             </ul>
-            <a class="text-light nav-item nav-link" href="<c:url value="/views/history" />">History</a>
+            <a class="text-light nav-item nav-link" href="<c:url value="/views/home" />">Home</a>
             <a class="text-light nav-item nav-link" href="<c:url value="/logout" />">Log out</a>
         </div>
     </div>
 </nav>
 
-<div class="row mt-3 mb-3">
+<%--<div class="row mt-3 mb-3">
     <div class="col-sm-1 col-xl-1"></div>
     <div class="col-sm-6 col-xl-4">
         <h4>Username: ${username}</</h4>
@@ -61,13 +61,13 @@
         <h4>Role ID: ${role}</</h4>
     </div>
     <div class="col-sm-5 col-xl-7"></div>
-</div>
+</div>--%>
 
 <!-- App title -->
 <div class="row mt-3 mb-3">
     <div class="col-sm-3 col-xl-4"></div>
     <div class="col-sm-6 col-xl-4" align="center">
-        <h2>Bootstrap5 Calculator</h2>
+        <h2>Calculator</h2>
     </div>
     <div class="col-sm-3 col-xl-4"></div>
 </div>
