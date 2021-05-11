@@ -72,11 +72,31 @@
     <div class="col-sm-3 col-xl-4"></div>
 </div>
 
+<div class="row mt-3 mb-3">
+    <div class="col-sm-3 col-xl-4"></div>
+    <div class="col-sm-6 col-xl-4" align="center">
+        <h2>Data History</h2>
+    </div>
+    <div class="col-sm-3 col-xl-4"></div>
+</div>
+
+<div class="row mt-2">
+    <div class="col-sm-3 col-xl-4"></div>
+    <div class="col-sm-4 col-xl-2">
+        <label id="labelUser" class="form-label">User</label>
+        <select id="selectUser" class="form-select">
+
+        </select>
+    </div>
+    <div class="col-sm-5 col-xl-6"></div>
+</div>
+
 <div class="row mt-2">
     <div class="col-sm-3 col-xl-4"></div>
     <div class="col-sm-4 col-xl-2">
         <label class="form-label">Type of Value</label>
         <select id="searchType" class="form-select">
+            <option value="all"> </option>
             <option value="FIRST_NUMBER">X</option>
             <option value="OPERATION">Operation</option>
             <option value="SECOND_NUMBER">Y</option>
@@ -90,7 +110,7 @@
 <div class="row mt-2">
     <div class="col-sm-3 col-xl-4"></div>
     <div class="col-sm-4 col-xl-2">
-        <label id="labelValue" class="form-label">Value</label>
+        <label id="searchLabel" class="form-label">Value</label>
         <input id="searchValue1" type="number" placeholder="Search" class="form-control" />
         <select id="searchValue2" class="form-select">
             <option value="+">+</option>
@@ -106,8 +126,11 @@
 
 <div class="row mt-2">
     <div class="col-sm-3 col-xl-4"></div>
-    <div class="col-sm-4 col-xl-2">
+    <div class="col-sm-2 col-xl-1">
         <button id="searchButton" type="button" class="btn btn-dark">Search</button>
+    </div>
+    <div class="col-sm-2 col-xl-1">
+        <button id="clearButton" type="button" class="btn btn-dark">Clear</button>
     </div>
     <div class="col-sm-5 col-xl-6"></div>
 </div>
@@ -125,6 +148,7 @@
                 <th>Result</th>
                 <th>Date</th>
                 <th>Time</th>
+                <th>User</th>
             </tr>
             </thead>
             <tbody>

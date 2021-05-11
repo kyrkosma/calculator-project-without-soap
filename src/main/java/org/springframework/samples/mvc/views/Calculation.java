@@ -42,6 +42,9 @@ public class Calculation {
     @Column(name = "HMEROM")
     private Date hmerom;
 
+    @Column(name = "USERNAME")
+    private String userName;
+
     public int getID() { return id; }
     public void setID(int id) { this.id = id; }
 
@@ -71,4 +74,7 @@ public class Calculation {
 
     public Date getHmerom() { return hmerom; }
     public void setHmerom(Date hmerom) { this.hmerom = hmerom; }
+
+    public String getUserName() { return userName; }
+    public void setUserName(String userName) { this.userName = userName; }
 }

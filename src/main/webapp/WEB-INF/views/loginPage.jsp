@@ -2,12 +2,11 @@
 <%@ page session="false" %>
 <html>
 <head>
-	<title>My HTML View</title>
+	<title>Calculator</title>
 	<%--<link href="<c:url value="/resources/form.css" />" rel="stylesheet"  type="text/css" />--%>
 	<!-- Required meta tags -->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Calculator</title>
 	<!-- JQuery -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
@@ -26,9 +25,9 @@
 			<input type="submit" id="btnLogin" class="fadeIn fourth" value="Log In">
 		</form>
 
-		<div id="formFooter">
+		<%--<div id="formFooter">
 			<a class="underlineHover" href="#">Forgot Password?</a>
-		</div>
+		</div>--%>
 
 	</div>
 </div>

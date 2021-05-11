@@ -63,6 +63,14 @@
 	<div class="col-sm-3 col-xl-4"></div>
 </div>
 
+<div class="row mt-3 mb-3">
+	<div class="col-sm-3 col-xl-4"></div>
+	<div class="col-sm-6 col-xl-4" align="center">
+		<h2>Calculator</h2>
+	</div>
+	<div class="col-sm-3 col-xl-4"></div>
+</div>
+
 <form>
 	<div class="row mt-2">
 		<div class="col-sm-3 col-xl-4"></div>
@@ -74,7 +82,7 @@
 	<div class="row">
 		<div class="col-sm-3 col-xl-4"></div>
 		<div class="col-sm-4 col-xl-2">
-			<input type="number" class="form-control" id="number1" aria-describedby="number1Help" placeholder="Number" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Number'" step="0.01">
+			<input type="number" class="form-control" id="number1" aria-describedby="number1Help" placeholder="Number" onkeydown="return event.keyCode !== 69 && event.keyCode !== 187" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Number'" step="0.01">
 		</div>
 		<div class="col-sm-5 col-xl-6"></div>
 	</div>
@@ -119,7 +127,7 @@
 	<div class="row">
 		<div class="col-sm-3 col-xl-4"></div>
 		<div class="col-sm-4 col-xl-2">
-			<input type="number" class="form-control" id="number2" aria-describedby="number2Help" placeholder="Number" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Number'" step="0.01">
+			<input type="number" class="form-control" id="number2" aria-describedby="number2Help" placeholder="Number" onkeydown="return event.keyCode !== 69 && event.keyCode !== 187" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Number'" step="0.01">
 		</div>
 		<div class="col-sm-5 col-xl-6"></div>
 	</div>

@@ -14,9 +14,9 @@ public class Role {
     @Column(name = "NAME")
     private String name;
 
-    @OneToOne(mappedBy = "role")
+    /*@OneToOne(mappedBy = "role")
     private User user;
-
+*/
     public Role() {}
 
     public Role(int id) {this.id = id;}
@@ -33,11 +33,11 @@ public class Role {
 
     public void setName(String name) {this.name = name;}
 
-    public User getUser() {
+    /*public User getUser() {
         return user;
     }
 
     public void setUser(User user) {
         this.user = user;
-    }
+    }*/
 }

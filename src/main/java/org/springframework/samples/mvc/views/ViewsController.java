@@ -10,6 +10,8 @@ import com.google.gson.Gson;
 import jdk.nashorn.internal.runtime.logging.Logger;
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
@@ -17,6 +19,7 @@ import java.io.PrintWriter;
 import java.sql.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -46,6 +49,20 @@ public class ViewsController {
 
 		String result = getCalculationTable();
 
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+		if (principal instanceof UserDetails) {
+			String username = ((UserDetails)principal).getUsername();
+			System.out.println("-------First IF-------");
+			System.out.println("User " + username + " is logged in.");
+			System.out.println("------------------------");
+		} else {
+			String username = principal.toString();
+			System.out.println("-------SECOND IF--------");
+			System.out.println("User " + username + " is logged in.");
+			System.out.println("------------------------");
+		}
+
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		// Get the printwriter object from response to write the required json object to the output stream
@@ -53,36 +70,66 @@ public class ViewsController {
 		// Perform the following, it will return your json object
 		out.print(result);
 		out.flush();
+	}
 
+	@GetMapping("/getUsers")
+	@ResponseBody
+	public void getUsers(HttpServletResponse response) throws IOException, SQLException {
+
+		String result = getUsersTable();
+
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		PrintWriter out = response.getWriter();
+		out.print(result);
+		out.flush();
 	}
 
 	@GetMapping("submitToDB")
 	@ResponseBody
 	public void submitToDB(@RequestParam String num1, @RequestParam String operation, @RequestParam String num2, HttpServletResponse response) throws IOException, SQLException {
 		float result = 98765;
-		if (operation.equals("+")) result = Float.parseFloat(num1) + Float.parseFloat(num2);
-		else if (operation.equals("-")) result = Float.parseFloat(num1) - Float.parseFloat(num2);
-		else if (operation.equals("*")) result = Float.parseFloat(num1) * Float.parseFloat(num2);
-		else if (operation.equals("/")) result = Float.parseFloat(num1) / Float.parseFloat(num2);
 
-		Date date = Calendar.getInstance().getTime();
-		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-		DateFormat timeFormat = new SimpleDateFormat("hh:mm:ss");
-		String strDate = dateFormat.format(date);
-		String strTime = timeFormat.format(date);
+		if(operation.equals("/") && num2.equals("0")){
+			response.getWriter().write("error: divided by zero");
+		} else {
+			if (operation.equals("+")) result = Float.parseFloat(num1) + Float.parseFloat(num2);
+			else if (operation.equals("-")) result = Float.parseFloat(num1) - Float.parseFloat(num2);
+			else if (operation.equals("*")) result = Float.parseFloat(num1) * Float.parseFloat(num2);
+			else if (operation.equals("/")) result = Float.parseFloat(num1) / Float.parseFloat(num2);
 
-		float firstNumber = Float.parseFloat(num1);
-		float secondNumber = Float.parseFloat(num2);
-		addCalculationToDB(firstNumber, operation, secondNumber,result, strDate, new Date(), new Date(), strTime, new Date());
+			Date date = Calendar.getInstance().getTime();
+			DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+			DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+			String strDate = dateFormat.format(date);
+			String strTime = timeFormat.format(date);
 
-		response.getWriter().write(String.valueOf(result));
+			float firstNumber = Float.parseFloat(num1);
+			float secondNumber = Float.parseFloat(num2);
+			addCalculationToDB(firstNumber, operation, secondNumber,result, strDate, new Date(), new Date(), strTime, new Date());
+
+			response.getWriter().write(String.valueOf(result));
+		}
+
 	}
 
 	@GetMapping("searchDB")
 	@ResponseBody
-	public void searchDB(@RequestParam String operation, @RequestParam String value1, @RequestParam String value2, HttpServletResponse response) throws IOException, SQLException {
+	public void searchDB(@RequestParam String userName, @RequestParam String operation, @RequestParam String value1,
+						 @RequestParam String value2, HttpServletResponse response) throws IOException, SQLException {
 
-		String result = getFilteredCalculationTable(operation, value1, value2);
+		String result = null;
+
+		if (userName.equals("all")){
+			if (operation.equals("all")){
+				result = getCalculationTable();
+			} else {
+				result = getFilteredCalculationTable(operation, value1, value2);
+			}
+		} else {
+			result = getFilteredCalculationTableByUser(userName, operation, value1, value2);
+		}
+
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
@@ -165,7 +212,7 @@ public class ViewsController {
 
 		Date date = Calendar.getInstance().getTime();
 		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-		DateFormat timeFormat = new SimpleDateFormat("hh:mm:ss");
+		DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
 		String strDate = dateFormat.format(date);
 		String strTime = timeFormat.format(date);
 		System.out.println("Converted String: " + strDate);
@@ -248,6 +295,14 @@ public class ViewsController {
 									 java.util.Date hmer,
 									 java.util.Date hmeromhnia, String wra_,
 									 java.util.Date hmerom) {
+		//Get current User's username
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String username;
+		if (principal instanceof UserDetails) {
+			username = ((UserDetails)principal).getUsername();
+		} else {
+			username = principal.toString();
+		}
 
 		// The EntityManager class allows operations such as create, read, update, delete
 		EntityManager entityManager = ENTITY_MANAGER_FACTORY.createEntityManager();
@@ -270,6 +325,7 @@ public class ViewsController {
 			calculation.setHmeromhnia(hmeromhnia);
 			calculation.setWra_(wra_);
 			calculation.setHmerom(hmerom);
+			calculation.setUserName(username);
 
 			// Save the customer object
 			entityManager.persist(calculation);
@@ -403,6 +459,72 @@ public class ViewsController {
 		return result;
 	}
 
+	public String getFilteredCalculationTableByUser(String userName, String operation, String value1, String value2){
+		String queryJPA = null;
+		String result = null;
+		// The EntityManager class allows operations such as create, read, update, delete
+		EntityManager entityManager = ENTITY_MANAGER_FACTORY.createEntityManager();
+		// Used to issue transactions on the EntityManager
+		EntityTransaction entityTransaction = null;
+
+		try {
+			List<Calculation> calculations = null;
+			entityTransaction = entityManager.getTransaction();
+			entityTransaction.begin();
+
+			if (value2.equals("empty")) {
+				if(operation.equals("OPERATION")) {
+					queryJPA = "SELECT c FROM Calculation c WHERE c.operation = :firstValue AND c.userName = :userValue";
+					calculations = entityManager.createQuery(queryJPA, Calculation.class).setParameter("firstValue", value1).setParameter("userValue", userName).getResultList();
+				} else if (operation.equals("FIRST_NUMBER")){
+					queryJPA = "SELECT c FROM Calculation c WHERE c.firstNumber = :firstValue AND c.userName = :userValue";
+					calculations = entityManager.createQuery(queryJPA, Calculation.class).setParameter("firstValue", Float.parseFloat(value1)).setParameter("userValue", userName).getResultList();
+				} else if (operation.equals("SECOND_NUMBER")){
+					queryJPA = "SELECT c FROM Calculation c WHERE c.secondNumber = :firstValue AND c.userName = :userValue";
+					calculations = entityManager.createQuery(queryJPA, Calculation.class).setParameter("firstValue", Float.parseFloat(value1)).setParameter("userValue", userName).getResultList();
+				} else if (operation.equals("APOTELESMA")){
+					queryJPA = "SELECT c FROM Calculation c WHERE c.apotelesma = :firstValue AND c.userName = :userValue";
+					calculations = entityManager.createQuery(queryJPA, Calculation.class).setParameter("firstValue", Float.parseFloat(value1)).setParameter("userValue", userName).getResultList();
+				} else if (operation.equals("all")){
+					queryJPA = "SELECT c FROM Calculation c WHERE c.userName = :userValue";
+					calculations = entityManager.createQuery(queryJPA, Calculation.class).setParameter("userValue", userName).getResultList();
+				}
+				System.out.println("-----------------------------------------------");
+				System.out.println("NO DATE DETECTED");
+				System.out.println("-----------------------------------------------");
+			} else {
+				/*Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(value1);
+				Date date2 = new SimpleDateFormat("yyyy-MM-dd").parse(value2);*/
+				queryJPA = "SELECT c FROM Calculation c WHERE TRUNC(c.hmeromhnia) >= TO_DATE(:firstValue,'yyyy-MM-dd') AND TRUNC(c.hmeromhnia) <= TO_DATE(:secondValue,'yyyy-MM-dd') AND c.userName = :userValue";
+				calculations = entityManager.createQuery(queryJPA, Calculation.class).setParameter("firstValue", value1).setParameter("secondValue", value2).setParameter("userValue", userName).getResultList();
+				System.out.println("-----------------------------------------------");
+				System.out.println("DATE DETECTED");
+				System.out.println(value1);
+				System.out.println(value2);
+				System.out.println("-----------------------------------------------");
+			}
+
+			Gson g = new Gson();
+			result = g.toJson(calculations);
+
+			entityTransaction.commit();
+
+		} catch (Exception exception) {
+
+			// If there is an exception rollback changes
+			if (entityTransaction != null) {
+				entityTransaction.rollback();
+			}
+			exception.printStackTrace();
+
+		} finally {
+			// Close EntityManager
+			entityManager.close();
+		}
+
+		return result;
+	}
+
 	public void createUsersAndRoles(){
 		EntityManager entityManager = ENTITY_MANAGER_FACTORY.createEntityManager();
 		EntityTransaction entityTransaction = null;
@@ -444,6 +566,52 @@ public class ViewsController {
 			// Close EntityManager
 			entityManager.close();
 		}
+	}
+
+	public String getUsersTable(){
+
+		String result = null;
+		EntityManager entityManager = ENTITY_MANAGER_FACTORY.createEntityManager();
+		EntityTransaction entityTransaction = null;
+
+		try {
+
+			List<User> users;
+			List<String> userNames = new ArrayList<>();
+			entityTransaction = entityManager.getTransaction();
+			entityTransaction.begin();
+
+			users = entityManager.createQuery("SELECT u FROM User u", User.class).getResultList();
+
+			for (User u: users) {
+				userNames.add(u.getUsername());
+				System.out.println(u.getUsername());
+			}
+
+			Gson g = new Gson();
+			result = g.toJson(userNames);
+
+			System.out.println("DEBUG");
+			System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+			System.out.println(result);
+			System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+
+			entityTransaction.commit();
+
+		} catch (Exception exception) {
+
+			// If there is an exception rollback changes
+			if (entityTransaction != null) {
+				entityTransaction.rollback();
+			}
+			exception.printStackTrace();
+
+		} finally {
+			// Close EntityManager
+			entityManager.close();
+		}
+
+		return result;
 	}
 
 }

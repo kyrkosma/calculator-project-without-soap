@@ -127,13 +127,13 @@ public class UtilSoapWs extends SoapWs {
         if(operation.equals("+") || operation.equals("-") || operation.equals("*") || operation.equals("/")){
             Date date = Calendar.getInstance().getTime();
             DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-            DateFormat timeFormat = new SimpleDateFormat("hh:mm:ss");
+            DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
             String strDate = dateFormat.format(date);
             String strTime = timeFormat.format(date);
             addCalculationToDB(num1, operation, num2, result, strDate, new Date(), new Date(), strTime, new Date());
-            return "success";
+            return "Success. The result is " + result;
         } else {
-            return "failed";
+            return "Specified user does not exist.";
         }
     }
 
@@ -163,6 +163,7 @@ public class UtilSoapWs extends SoapWs {
             calculation.setHmeromhnia(hmeromhnia);
             calculation.setWra_(wra_);
             calculation.setHmerom(hmerom);
+            calculation.setUserName("admin");
 
             // Save the customer object
             entityManager.persist(calculation);

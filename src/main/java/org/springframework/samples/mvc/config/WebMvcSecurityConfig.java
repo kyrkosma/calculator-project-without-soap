@@ -8,6 +8,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -28,6 +31,7 @@ public class WebMvcSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         try{
+            PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
             List<User> users;
             entityTransaction = entityManager.getTransaction();
             entityTransaction.begin();
@@ -35,10 +39,15 @@ public class WebMvcSecurityConfig extends WebSecurityConfigurerAdapter {
             users = entityManager.createQuery("SELECT u FROM User u", User.class).getResultList();
 
             for (User u: users) {
+                /*String psw = encoder.encode(u.getPassword());*/
+                System.out.println("PASSWORD for user: " + u.getUsername());
+                System.out.println("Original: " + u.getPassword());
+                /*System.out.println("Encrypted: " + encoder.encode(u.getPassword()));*/
+                System.out.println("PASSWORD");
                 auth
                         .inMemoryAuthentication()
                         .withUser(u.getUsername())  // #1
-                        .password("{noop}" + u.getPassword())
+                        .password("{bcrypt}"+u.getPassword())   //define type of encryption
                         .roles(u.getRole().getName());
             }
             entityTransaction.commit();
