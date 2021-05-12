@@ -2,12 +2,12 @@
 <%@ page session="false" %>
 <html>
 <head>
-    <title>My HTML View</title>
+    <title>History | Calculator</title>
     <%--<link href="<c:url value="/resources/form.css" />" rel="stylesheet"  type="text/css" />--%>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Calculator</title>
+    <link rel="icon" href="<c:url value="/resources/icon.png" />" type="image/gif" sizes="32x32">
     <!-- JQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 

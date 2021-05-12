@@ -10,7 +10,8 @@ create table CALCULATIONHISTORY
     HMEROMHNIA__  DATE,
     HMEROMHNIA    DATE,
     WRA_          VARCHAR2(50),
-    HMEROM        TIMESTAMP(0)
+    HMEROM        TIMESTAMP(0),
+    USERNAME      VARCHAR2(50)
 );
 
 create table USERS
