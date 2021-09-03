@@ -1,3 +1,4 @@
+/*
 package org.springframework.samples.mvc.views;
 
 import javax.persistence.EntityManager;
@@ -183,3 +184,4 @@ public class UtilSoapWs extends SoapWs {
         }
     }
 }
+*/
