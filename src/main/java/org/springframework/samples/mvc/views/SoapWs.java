@@ -1,3 +1,4 @@
+/*
 package org.springframework.samples.mvc.views;
 
 import javax.jws.WebMethod;
@@ -57,3 +58,4 @@ public class SoapWs {
 
 
 }
+*/
