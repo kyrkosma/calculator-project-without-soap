@@ -38,20 +38,6 @@ public class MvcShowcaseAppInitializer extends AbstractAnnotationConfigDispatche
 
 	@Override
 	public void onStartup(ServletContext servletContext) throws ServletException {
-
-		/*final EntityManagerFactory ENTITY_MANAGER_FACTORY = Persistence
-				.createEntityManagerFactory("HibernateJPA");*/
-
-		// Needed for Soap-Ws to work (the following 3 commands)
-		ServletRegistration.Dynamic dispatcher = servletContext
-				.addServlet("sun", new WSServlet());
-		dispatcher
-				.addMapping("/SoapWs");
-		servletContext
-				.addListener(new WSServletContextListener());
-
-		super.onStartup(servletContext);
-		servletContext.addListener(new SessionListener());
 	}
 
 }
