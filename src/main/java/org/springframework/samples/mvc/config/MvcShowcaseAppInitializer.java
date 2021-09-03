@@ -6,8 +6,6 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
 
-import com.sun.xml.ws.transport.http.servlet.WSServlet;
-import com.sun.xml.ws.transport.http.servlet.WSServletContextListener;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.context.support.XmlWebApplicationContext;
