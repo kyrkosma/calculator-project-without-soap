@@ -70,7 +70,7 @@ stages:
                   # Modify deployment script based on the app type
                   echo "Starting deployment script run"
                   # Modify this command
-                  Copy-Item "C:\azagent\A1\_work\3\drop\target\calculator-project-without-soap.war" -Destination "C:\Program Files\Apache Software Foundation\Tomcat 8.5\webapps" -Recurse -force
+                  Copy-Item "C:\azagent\A1\_work\3\drop\target\spring-mvc-showcase.war" -Destination "C:\Program Files\Apache Software Foundation\Tomcat 8.5\webapps" -Recurse -force
           routeTraffic:
             steps:
             - script: echo routing traffic
