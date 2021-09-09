@@ -2,7 +2,7 @@
 <%@ page session="false" %>
 <html>
 <head>
-	<title>Calculator</title>
+	<title>Calculator | CI/CD</title>
 	<%--<link href="<c:url value="/resources/form.css" />" rel="stylesheet"  type="text/css" />--%>
 	<!-- Required meta tags -->
 	<meta charset="utf-8">
