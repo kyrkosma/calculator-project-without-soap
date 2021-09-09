@@ -66,7 +66,7 @@
 <div class="row mt-3 mb-3">
 	<div class="col-sm-3 col-xl-4"></div>
 	<div class="col-sm-6 col-xl-4" align="center">
-		<h2>Calculator ABCD</h2>
+		<h2>Calculator</h2>
 	</div>
 	<div class="col-sm-3 col-xl-4"></div>
 </div>
